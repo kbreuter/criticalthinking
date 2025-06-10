@@ -255,7 +255,7 @@
           // Ein-/Ausklappen
           if (d.children) { d._children = d.children; d.children = null; }
           else { d.children = d._children; d._children = null; }
-          update(d);
+          update(root);
           // Info-Text aktualisieren
           const txt = examples[d.data.name] || 'Kein Beispiel verfügbar.';
           d3.select('#info').html(`<strong>${d.data.name}</strong><br>${txt}`);
