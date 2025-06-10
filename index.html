@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Kodex für kritisches Denken</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background:
+        linear-gradient(rgba(240,244,248,0.8), rgba(217,226,236,0.8)),
+        url('Denali.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+    h2 {
+      text-align: center;
+      color: #102a43;
+      font-weight: 400;
+      margin-top: 20px;
+      letter-spacing: 1px;
+    }
+    #chart {
+      width: 100vw;
+      height: calc(100vh - 140px);
+    }
+    #info {
+      position: absolute;
+      top: 50%;
+      right: 40px;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      border-radius: 4px;
+      max-width: 300px;
+      font-size: 14px;
+      color: #102a43;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .node circle {
+      stroke-width: 2px;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+      cursor: pointer;
+    }
+    .node text {
+      font-size: 16px;
+      fill: #102a43;
+      pointer-events: none;
+    }
+    .link {
+      fill: none;
+      stroke-width: 2px;
+      stroke-linecap: round;
+    }
+  </style>
+</head>
+<body>
+  <h2>Kodex für kritisches Denken</h2>
+  <div id="chart"></div>
+  <div id="info">Klicke auf einen Aspekt, um ein Beispiel zu sehen.</div>
+
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script>
+    // Hierarchische Daten
+    const data = {
+          "name": "Kodex für kritisches Denken",
+      "children": [
+        { "name": "Kognitive Fähigkeiten", "children": [
+            { "name": "Analyse", "children": [
+                { "name": "Prämissen und Schlussfolgerungen identifizieren" },
+                { "name": "Fakten vs. Meinungen unterscheiden" },
+                { "name": "Komplexe Probleme zerlegen" }
+            ]},
+            { "name": "Bewertung", "children": [
+                { "name": "Glaubwürdigkeit von Quellen und Beweisen" },
+                { "name": "Logische Konsistenz (Fehlererkennung)" },
+                { "name": "Relevanz und Hinreichendheit der Daten" }
+            ]},
+            { "name": "Schlussfolgerung", "children": [
+                { "name": "Ziehen gültiger Schlussfolgerungen" },
+                { "name": "Hypothesengenerierung" },
+                { "name": "Analogisches und statistisches Denken" }
+            ]},
+            { "name": "Erklärung", "children": [
+                { "name": "Begründung darlegen" },
+                { "name": "Schlussfolgerungen rechtfertigen" },
+                { "name": "Klar lehren und überzeugen" }
+            ]}
+        ]},
+        { "name": "Einstellungen und Haltungen", "children": [
+            { "name": "Aufgeschlossenheit", "children": [
+                { "name": "Alternative Standpunkte berücksichtigen" },
+                { "name": "Eigene Annahmen überprüfen" }
+            ]},
+            { "name": "Geistige Demut", "children": [
+                { "name": "Unsicherheit anerkennen" },
+                { "name": "Bereitschaft, Überzeugungen zu revidieren" }
+            ]},
+            { "name": "Neugier und Wissensdrang", "children": [
+                { "name": "Tiefgehende Fragen stellen" },
+                { "name": "Neue Informationen suchen" }
+            ]},
+            { "name": "Skepsis", "children": [
+                { "name": "Anekdotische Behauptungen hinterfragen" },
+                { "name": "Außergewöhnliche Behauptungen prüfen" }
+            ]},
+            { "name": "Durchhaltevermögen", "children": [
+                { "name": "Schwierige Probleme angehen" },
+                { "name": "Ausdauer über längere Zeit aufrechterhalten" }
+            ]}
+        ]},
+        { "name": "Wissen und Strategien", "children": [
+            { "name": "Fachwissen", "children": [
+                { "name": "Fachspezifische Fakten" },
+                { "name": "Konzeptuelle Rahmenwerke" }
+            ]},
+            { "name": "Denkmethoden", "children": [
+                { "name": "Deduktion und Induktion" },
+                { "name": "Bayessche Aktualisierung" },
+                { "name": "Gedankenexperimente" }
+            ]},
+            { "name": "Bewusstsein für Verzerrungen und Fehler", "children": [
+                { "name": "Vertrautheit mit gängigen Verzerrungen" },
+                { "name": "Strategien zur Entzerrung" }
+            ]},
+            { "name": "Forschungsmethoden", "children": [
+                { "name": "Experimente und Umfragen gestalten" },
+                { "name": "Grundlagen der statistischen Analyse" },
+                { "name": "Qualitativ vs. quantitativ" }
+            ]}
+        ]},
+        { "name": "Metakognition", "children": [
+            { "name": "Selbstüberwachung", "children": [
+                { "name": "Verwirrung erkennen" },
+                { "name": "Eigene Denkprozesse nachverfolgen" }
+            ]},
+            { "name": "Selbstkorrektur", "children": [
+                { "name": "Fehlerhaftes Denken überarbeiten" },
+                { "name": "Feedback einholen" }
+            ]},
+            { "name": "Reflexive Praxis", "children": [
+                { "name": "Erkenntnisse protokollieren" },
+                { "name": "Nachanalyse von Entscheidungen" }
+            ]}
+        ]},
+        { "name": "Kommunikation und Zusammenarbeit", "children": [
+            { "name": "Argumentation", "children": [
+                { "name": "Ein schlüssiges Argument aufbauen" },
+                { "name": "Gegenargumente antizipieren" }
+            ]},
+            { "name": "Aktives Zuhören", "children": [
+                { "name": "Standpunkte anderer paraphrasieren" },
+                { "name": "Klärende Fragen stellen" }
+            ]},
+            { "name": "Dialog und Debatte", "children": [
+                { "name": "Respektvoller Austausch" },
+                { "name": "Fokussierung auf Beweise beibehalten" }
+            ]}
+        ]},
+        { "name": "Selbstregulation und Planung", "children": [
+            { "name": "Zielsetzung", "children": [
+                { "name": "Klare Ziele definieren" },
+                { "name": "Aufgaben priorisieren" }
+            ]},
+            { "name": "Zeitmanagement", "children": [
+                { "name": "Aufwand dort einsetzen, wo er wichtig ist" },
+                { "name": "Aufschieberitis vermeiden" }
+            ]},
+            { "name": "Stress- und Emotionskontrolle", "children": [
+                { "name": "Emotionale Verzerrungen erkennen" },
+                { "name": "Techniken, um unter Druck ruhig zu bleiben" }
+            ]}
+        ]}
+      ]
+    };
+
+    // Beispiel-Template
+    //const examples = {
+    //  /* Beispiele hier ausfüllen */
+    //};
+    const examples = {
+      "Prämissen und Schlussfolgerungen identifizieren":
+        "Beispiel: In der Aussage 'Alle Menschen sind sterblich. Sokrates ist ein Mensch. Also ist Sokrates sterblich.' sind die Prämissen 'Alle Menschen sind sterblich' und 'Sokrates ist ein Mensch' und die Schlussfolgerung 'Sokrates ist sterblich'.",
+      "Fakten vs. Meinungen unterscheiden":
+        "Beispiel: 'Der Eiffelturm ist 324 Meter hoch.' ist ein Fakt, während 'Der Eiffelturm ist das schönste Bauwerk der Welt.' eine Meinung darstellt.",
+      "Komplexe Probleme zerlegen":
+        "Beispiel: Bei der Planung eines Umzugs kann man das Gesamtproblem in Teilaufgaben wie 'Zeitplan erstellen', 'Transportoptionen prüfen' und 'Kisten packen' zerlegen."
+    };
+
+    const margin = { top: 20, right: 120, bottom: 20, left: 300 };
+    const width = window.innerWidth - margin.left - margin.right;
+    const height = window.innerHeight - margin.top - margin.bottom - 140;
+    const color = d3.scaleOrdinal(d3.schemeSet3);
+    const linkColor = d3.scaleLinear().domain([0, 5]).range(['#bcccdc', '#334e68']);
+
+    // SVG und Zoom-Pan Setup
+    const svg = d3.select('#chart')
+      .append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .call(d3.zoom()
+        .scaleExtent([0.5, 2])
+        .on('zoom', (event) => g.attr('transform', event.transform))
+      );
+
+    const g = svg.append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const treemap = d3.tree().size([height, width]);
+    let root = d3.hierarchy(data);
+    root.x0 = height / 2;
+    root.y0 = 0;
+
+    // Alle Knoten standardmäßig einklappen (nur wenn vorhanden)
+    if (root.children) {
+      root.children.forEach(collapse);
+    }
+
+    // Diagonal-Funktion für geschwungene Links
+    function diagonal(d) {
+      return `M${d.source.y},${d.source.x}
+              C${(d.source.y + d.target.y)/2},${d.source.x}
+               ${(d.source.y + d.target.y)/2},${d.target.x}
+               ${d.target.y},${d.target.x}`;
+    }
+
+    // Rekursive Collapse-Funktion (legt alle _children an)
+    function collapse(d) {
+      if (d.children) {
+        d._children = d.children;
+        d._children.forEach(collapse);
+        d.children = null;
+      }
+    }
+
+    let i = 0;
+    function update(source) {
+      const treeData = treemap(root);
+      const nodes = treeData.descendants();
+      const links = treeData.links();
+
+      // Tiefe als y-Koordinate
+      nodes.forEach(d => { d.y = d.depth * 180; });
+
+      // NODES
+      const node = g.selectAll('g.node')
+        .data(nodes, d => d.id || (d.id = ++i));
+
+      const nodeEnter = node.enter().append('g')
+        .attr('class', 'node')
+        .attr('transform', d => `translate(${source.y0},${source.x0})`)
+        .on('click', (event, d) => {
+          // Ein-/Ausklappen
+          if (d.children) { d._children = d.children; d.children = null; }
+          else { d.children = d._children; d._children = null; }
+          update(d);
+          // Info-Text aktualisieren
+          const txt = examples[d.data.name] || 'Kein Beispiel verfügbar.';
+          d3.select('#info').html(`<strong>${d.data.name}</strong><br>${txt}`);
+        });
+
+      nodeEnter.append('circle')
+        .attr('r', 0)
+        .attr('fill', d => color(d.depth));
+
+      nodeEnter.append('text')
+        .attr('x', d => (d.children || d._children) ? -15 : 15)
+        .attr('dy', '.35em')
+        .attr('text-anchor', d => (d.children || d._children) ? 'end' : 'start')
+        .text(d => d.data.name);
+
+      const nodeUpdate = nodeEnter.merge(node);
+      nodeUpdate.transition().duration(300)
+        .attr('transform', d => `translate(${d.y},${d.x})`);
+      nodeUpdate.select('circle').transition().duration(300)
+        .attr('r', 8);
+
+      const nodeExit = node.exit();
+      nodeExit.transition().duration(300)
+        .attr('transform', d => `translate(${source.y},${source.x})`)
+        .remove();
+
+      // LINKS
+      const link = g.selectAll('path.link')
+        .data(links, d => d.target.id);
+
+      const linkEnter = link.enter().insert('path', 'g')
+        .attr('class', 'link')
+        .attr('d', d => {
+          const o = { x: source.x0, y: source.y0 };
+          return diagonal({ source: o, target: o });
+        })
+        .attr('stroke', d => linkColor(d.target.depth));
+
+      const linkUpdate = linkEnter.merge(link);
+      linkUpdate.transition().duration(300)
+        .attr('d', d => diagonal(d));
+
+      const linkExit = link.exit();
+      linkExit.transition().duration(300)
+        .attr('d', d => {
+          const o = { x: source.x, y: source.y };
+          return diagonal({ source: o, target: o });
+        })
+        .remove();
+
+      // Positionen für die nächste Transition sichern
+      nodes.forEach(d => {
+        d.x0 = d.x;
+        d.y0 = d.y;
+      });
+    }
+
+    update(root);
+  </script>
+</body>
+</html>
