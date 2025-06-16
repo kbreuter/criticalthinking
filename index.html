@@ -34,10 +34,20 @@
       background: rgba(255,255,255,0.9);
       padding: 10px;
       border-radius: 4px;
-      max-width: 300px;
+      max-width: 600px;
       font-size: 14px;
       color: #102a43;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    #info blockquote.twitter-tweet {
+    max-width: 300px !important;
+    width: auto !important;
+    margin: 0 auto;
+    }
+    #info .twitter-tweet-rendered,
+    #info iframe[src*="platform.twitter.com"] {
+      max-width: 300px !important;
+      width: 100% !important;
     }
     .node circle {
       stroke-width: 2px;
@@ -62,6 +72,7 @@
   <div id="info">Klicke auf einen Aspekt, um ein Beispiel zu sehen.</div>
 
   <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script>
     // Hierarchische Daten
     const data = {
@@ -168,7 +179,24 @@
       "Fakten vs. Meinungen unterscheiden":
         "Beispiel: 'Der Eiffelturm ist 324 Meter hoch.' ist ein Fakt, während 'Der Eiffelturm ist das schönste Bauwerk der Welt.' eine Meinung darstellt.",
       "Komplexe Probleme zerlegen":
-        "Beispiel: Bei der Planung eines Umzugs kann man das Gesamtproblem in Teilaufgaben wie 'Zeitplan erstellen', 'Transportoptionen prüfen' und 'Kisten packen' zerlegen."
+        "Beispiel: Bei der Planung eines Umzugs kann man das Gesamtproblem in Teilaufgaben wie 'Zeitplan erstellen', 'Transportoptionen prüfen' und 'Kisten packen' zerlegen.",
+      "Glaubwürdigkeit von Quellen und Beweisen": `
+         <p>Beim Beurteilen der Glaubwürdigkeit von Informationen müssen meist zwei Ebenen im Blick behalten werden:</p>
+          <ul>
+            <li><strong>Unmittelbare (primäre) Quelle:</strong> Die Person, Zeitung oder der Blog, von der man die Information direkt beziehst.</li>
+            <li><strong>Ursprüngliche (sekundäre) Quelle:</strong> Die Studie, das Behördendokument, die Primärstatistik oder das Original-Interview, auf das sich die unmittelbare Quelle stützt.</li>
+          </ul>
+          <blockquote class="twitter-tweet">
+          <p lang="en" dir="ltr">
+            NOAA makes it official. Last 8 years… global cooling… CO₂ warming is a hoax.
+          </p>
+          &mdash; Steve Milloy (@JunkScience)
+          <a href="https://twitter.com/JunkScience/status/1613724250011242497">
+            January 13, 2023
+          </a>
+          </blockquote>
+          <p>In diesem Beispiel sehen wir sehr schön, dass wir sowohl die Glaubwürdigkeit der primären Quelle Steve Milloy überprüfen sollten, als auch die sekundäre Quelle (NOAA), auf die sich Steve Milloy bezieht.</p>
+        `
     };
 
     const margin = { top: 20, right: 120, bottom: 20, left: 300 };
@@ -241,6 +269,9 @@
           // Info-Text aktualisieren
           const txt = examples[d.data.name] || 'Kein Beispiel verfügbar.';
           d3.select('#info').html(`<strong>${d.data.name}</strong><br>${txt}`);
+          if (window.twttr && twttr.widgets && twttr.widgets.load) {
+          twttr.widgets.load(document.getElementById('info'));
+        }
         });
 
       nodeEnter.append('circle')
