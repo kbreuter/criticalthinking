@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Kodex für kritisches Denken</title>
+  <title>Critical Thinking Codex</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
     body {
@@ -64,9 +64,9 @@
   </style>
 </head>
 <body>
-  <h2>Kodex für kritisches Denken</h2>
+  <h2>Critical Thinking Codex</h2>
   <div id="chart"></div>
-  <div id="info">Klicke auf einen Aspekt, um ein Beispiel zu sehen.</div>
+  <div id="info">Click on an aspect to see an example.</div>
   <div id="detail-box">
     <button id="close-detail">×</button>
     <div id="detail-content"></div>
@@ -75,13 +75,13 @@
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script>
     const examples = {
-      "Glaubwürdigkeit von Quellen und Beweisen": `
-         <p>Beim Beurteilen der Glaubwürdigkeit von Informationen müssen meist zwei Ebenen im Blick behalten werden:</p>
-          <ul>
-            <li><strong>Unmittelbare (primäre) Quelle:</strong> Die Person, Zeitung oder der Blog, von der man die Information direkt beziehst.</li>
-            <li><strong>Ursprüngliche (sekundäre) Quelle:</strong> Die Studie, das Behördendokument, die Primärstatistik oder das Original-Interview, auf das sich die unmittelbare Quelle stützt.</li>
-          </ul>
-          <blockquote class="twitter-tweet">
+      "Credibility of Sources and Evidence": `
+        <p>When assessing the credibility of information, you usually need to consider two levels:</p>
+        <ul>
+          <li><strong>Immediate (primary) source:</strong> The person, newspaper, or blog where you get the information directly.</li>
+          <li><strong>Original (secondary) source:</strong> The study, official document, primary statistics, or original interview that the immediate source relies on.</li>
+        </ul>
+        <blockquote class="twitter-tweet">
           <p lang="en" dir="ltr">
             NOAA makes it official. Last 8 years… global cooling… CO₂ warming is a hoax.
           </p>
@@ -89,114 +89,183 @@
           <a href="https://twitter.com/JunkScience/status/1613724250011242497">
             January 13, 2023
           </a>
-          </blockquote>
-          <p>In diesem Beispiel sehen wir sehr schön, dass wir sowohl die Glaubwürdigkeit der primären Quelle Steve Milloy überprüfen sollten, als auch die sekundäre Quelle (NOAA), auf die sich Steve Milloy bezieht.</p>
-        <a href="#" class="show-detail">▶ Mehr Details anzeigen</a>
+        </blockquote>
+        <p>In this example, we can clearly see that we should verify both the credibility of the primary source Steve Milloy and the secondary source (NOAA) that Steve Milloy refers to.</p>
+        <a href="#" class="show-detail">▶ Show more details</a>
       `,
-      "Glaubwürdigkeit von Quellen und Beweisen Detail": `
+      "Credibility of Sources and Evidence Detail": `
         <ul>
-          <li><strong>Unmittelbare (primäre) Quelle:</strong> z. B. ein Blog oder eine Zeitung</li>
-          <li><strong>Ursprüngliche (sekundäre) Quelle:</strong> z. B. Studie oder Primärstatistik</li>
+          <li><strong>Immediate (primary) source:</strong> e.g. a blog or a newspaper</li>
+          <li><strong>Original (secondary) source:</strong> e.g. a study or primary statistics</li>
         </ul>
       `,
-      "Prämissen und Schlussfolgerungen identifizieren":
-        "Beispiel: In der Aussage 'Alle Menschen sind sterblich. Sokrates ist ein Mensch. Also ist Sokrates sterblich.' sind die Prämissen 'Alle Menschen sind sterblich' und 'Sokrates ist ein Mensch' und die Schlussfolgerung 'Sokrates ist sterblich'.",
-      "Fakten vs. Meinungen unterscheiden":
-        "Beispiel: 'Der Eiffelturm ist 324 Meter hoch.' ist ein Fakt, während 'Der Eiffelturm ist das schönste Bauwerk der Welt.' eine Meinung darstellt.",
-      "Komplexe Probleme zerlegen":
-        "Beispiel: Bei der Planung eines Umzugs kann man das Gesamtproblem in Teilaufgaben wie 'Zeitplan erstellen', 'Transportoptionen prüfen' und 'Kisten packen' zerlegen."
+      "Identify Premises and Conclusions":
+        "Example: In the statement 'All humans are mortal. Socrates is a human. Therefore, Socrates is mortal.', the premises are 'All humans are mortal' and 'Socrates is a human' and the conclusion is 'Socrates is mortal'.",
+      "Distinguish Facts vs. Opinions":
+        "Example: 'The Eiffel Tower is 324 meters tall.' is a fact, whereas 'The Eiffel Tower is the most beautiful structure in the world.' is an opinion.",
+      "Break Down Complex Problems":
+        "Example: When planning a move, you can break down the overall task into subtasks like 'create a timeline', 'research transport options', and 'pack boxes'."
     };
     const data = {
-      "name": "Kodex für kritisches Denken",
+      "name": "Code for Critical Thinking",
       "children": [
-        { "name": "Kognitive Fähigkeiten", "children": [
-            { "name": "Analyse", "children": [
-                { "name": "Prämissen und Schlussfolgerungen identifizieren" },
-                { "name": "Fakten vs. Meinungen unterscheiden" },
-                { "name": "Komplexe Probleme zerlegen" }
-            ]},
-            { "name": "Bewertung", "children": [
-                { "name": "Glaubwürdigkeit von Quellen und Beweisen" },
-                { "name": "Logische Konsistenz (Fehlererkennung)" },
-                { "name": "Relevanz von Daten" }
-            ]},
-            { "name": "Schlussfolgerung", "children": [
-                { "name": "Ziehen gültiger Schlussfolgerungen" },
-                { "name": "Hypothesen" },
-                { "name": "Analoges und statistisches Denken" }
-            ]},
-            { "name": "Erklärung", "children": [
-                { "name": "Begründung darlegen" },
-                { "name": "Schlussfolgerungen rechtfertigen" },
-                { "name": "Klar lehren und überzeugen" }
-            ]}
-        ]},
-        { "name": "Einstellungen", "children": [
-            { "name": "Aufgeschlossenheit", "children": [
-                { "name": "Alternative Standpunkte berücksichtigen" },
-                { "name": "Eigene Annahmen überprüfen" }
-            ]},
-            { "name": "Geistige Demut", "children": [
-                { "name": "Unsicherheit anerkennen" },
-                { "name": "Bereitschaft, Überzeugungen zu revidieren" }
-            ]},
-            { "name": "Neugier", "children": [
-                { "name": "Tiefgehende Fragen stellen" },
-                { "name": "Neue Informationen suchen" }
-            ]},
-            { "name": "Skepsis", "children": [
-                { "name": "Anekdotische Behauptungen hinterfragen" },
-                { "name": "Außergewöhnliche Behauptungen prüfen" }
-            ]}
-        ]},
-        { "name": "Wissen und Strategien", "children": [
-            { "name": "Fachwissen", "children": [
-                { "name": "Fachspezifische Fakten" },
-                { "name": "Konzeptuelle Rahmenwerke" }
-            ]},
-            { "name": "Denkmethoden", "children": [
-                { "name": "Deduktion und Induktion" },
-                { "name": "Bayesianisches Denken" },
-                { "name": "Gedankenexperimente" }
-            ]},
-            { "name": "Verzerrungen und Fehler", "children": [
-                { "name": "Vertrautheit mit gängigen Verzerrungen" },
-                { "name": "Strategien zur Entzerrung" }
-            ]},
-            { "name": "Forschungsmethoden", "children": [
-                { "name": "Experimente und Umfragen gestalten" },
-                { "name": "Grundlagen der statistischen Analyse" },
-                { "name": "Qualitativ vs. quantitativ" }
-            ]}
-        ]},
-        { "name": "Metakognition", "children": [
-            { "name": "Selbstüberwachung", "children": [
-                { "name": "Verwirrung erkennen" },
-                { "name": "Eigene Denkprozesse nachverfolgen" }
-            ]},
-            { "name": "Selbstkorrektur", "children": [
-                { "name": "Fehlerhaftes Denken überarbeiten" },
-                { "name": "Feedback einholen" }
-            ]},
-            { "name": "Reflexive Praxis", "children": [
-                { "name": "Erkenntnisse protokollieren" },
-                { "name": "Analyse von Entscheidungen" }
-            ]}
-        ]},
-        { "name": "Konversation", "children": [
-            { "name": "Argumentation", "children": [
-                { "name": "Ein schlüssiges Argument aufbauen" },
-                { "name": "Gegenargumente antizipieren" }
-            ]},
-            { "name": "Aktives Zuhören", "children": [
-                { "name": "Standpunkte anderer paraphrasieren" },
-                { "name": "Klärende Fragen stellen" }
-            ]},
-            { "name": "Dialog und Debatte", "children": [
-                { "name": "Respektvoller Austausch" },
-                { "name": "Fokussierung auf Beweise beibehalten" }
-            ]}
-        ]}
+        {
+          "name": "Cognitive Skills",
+          "children": [
+            {
+              "name": "Analysis",
+              "children": [
+                { "name": "Identify Premises and Conclusions" },
+                { "name": "Distinguish Facts vs. Opinions" },
+                { "name": "Break Down Complex Problems" }
+              ]
+            },
+            {
+              "name": "Evaluation",
+              "children": [
+                { "name": "Credibility of Sources and Evidence" },
+                { "name": "Logical Consistency (Error Detection)" },
+                { "name": "Relevance of Data" }
+              ]
+            },
+            {
+              "name": "Inference",
+              "children": [
+                { "name": "Drawing Valid Conclusions" },
+                { "name": "Hypothesizing" },
+                { "name": "Analogical and Statistical Thinking" }
+              ]
+            },
+            {
+              "name": "Explanation",
+              "children": [
+                { "name": "Presenting Reasoning" },
+                { "name": "Justifying Conclusions" },
+                { "name": "Teaching and Persuading Clearly" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Disposition",
+          "children": [
+            {
+              "name": "Open-mindedness",
+              "children": [
+                { "name": "Consider Alternative Viewpoints" },
+                { "name": "Question Own Assumptions" }
+              ]
+            },
+            {
+              "name": "Intellectual Humility",
+              "children": [
+                { "name": "Acknowledge Uncertainty" },
+                { "name": "Willingness to Revise Beliefs" }
+              ]
+            },
+            {
+              "name": "Curiosity",
+              "children": [
+                { "name": "Ask In-depth Questions" },
+                { "name": "Seek New Information" }
+              ]
+            },
+            {
+              "name": "Skepticism",
+              "children": [
+                { "name": "Question Anecdotal Claims" },
+                { "name": "Examine Extraordinary Claims" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Knowledge and Strategies",
+          "children": [
+            {
+              "name": "Domain Knowledge",
+              "children": [
+                { "name": "Subject-specific Facts" },
+                { "name": "Conceptual Frameworks" }
+              ]
+            },
+            {
+              "name": "Thinking Methods",
+              "children": [
+                { "name": "Deduction and Induction" },
+                { "name": "Bayesian Thinking" },
+                { "name": "Thought Experiments" }
+              ]
+            },
+            {
+              "name": "Biases and Errors",
+              "children": [
+                { "name": "Familiarity with Common Biases" },
+                { "name": "Debiasing Strategies" }
+              ]
+            },
+            {
+              "name": "Research Methods",
+              "children": [
+                { "name": "Designing Experiments and Surveys" },
+                { "name": "Basics of Statistical Analysis" },
+                { "name": "Qualitative vs. Quantitative" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Metacognition",
+          "children": [
+            {
+              "name": "Self-monitoring",
+              "children": [
+                { "name": "Recognize Confusion" },
+                { "name": "Track Own Thought Processes" }
+              ]
+            },
+            {
+              "name": "Self-correction",
+              "children": [
+                { "name": "Revise Faulty Thinking" },
+                { "name": "Seek Feedback" }
+              ]
+            },
+            {
+              "name": "Reflective Practice",
+              "children": [
+                { "name": "Record Insights" },
+                { "name": "Analyze Decisions" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Conversation",
+          "children": [
+            {
+              "name": "Argumentation",
+              "children": [
+                { "name": "Construct a Coherent Argument" },
+                { "name": "Anticipate Counterarguments" }
+              ]
+            },
+            {
+              "name": "Active Listening",
+              "children": [
+                { "name": "Paraphrase Others' Viewpoints" },
+                { "name": "Ask Clarifying Questions" }
+              ]
+            },
+            {
+              "name": "Dialogue and Debate",
+              "children": [
+                { "name": "Respectful Exchange" },
+                { "name": "Maintain Focus on Evidence" }
+              ]
+            }
+          ]
+        }
       ]
     };
 
@@ -253,11 +322,11 @@
           else { d.children = d._children; d._children = null; }
           update(root);
           const key = d.data.name;
-          d3.select('#info').html(`<strong>${key}</strong><br>${examples[key]||'Kein Beispiel verfügbar.'}`);
+          d3.select('#info').html(`<strong>${key}</strong><br>${examples[key]||'No example available.'}`);
           d3.select('#info').selectAll('.show-detail')
             .on('click', function(e) {
               e.preventDefault();
-              d3.select('#detail-content').html(examples[key + ' Detail']||'Keine Details vorhanden.');
+              d3.select('#detail-content').html(examples[key + ' Detail']||'No details available.');
               d3.select('#detail-box').style('display','block');
               if (window.twttr?.widgets?.load) twttr.widgets.load(document.getElementById('detail-content'));
             });
