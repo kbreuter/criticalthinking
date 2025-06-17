@@ -10,8 +10,8 @@
       padding: 0;
       font-family: 'Roboto', sans-serif;
       background:
-        linear-gradient(rgba(240,244,248,0.8), rgba(217,226,236,0.8)),
-        url('Denali.jpg') no-repeat center center fixed;
+        linear-gradient(rgba(240,244,248,0.6), rgba(217,226,236,0.2)),
+        url('dark_impr.png') no-repeat center center fixed;
       background-size: cover;
       overflow: hidden;
     }
@@ -59,8 +59,8 @@
     }
     #close-detail { position: absolute; top: 8px; right: 8px; background: transparent; border: none; font-size: 1.2em; cursor: pointer; }
     .node circle { stroke-width: 2px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1)); cursor: pointer; }
-    .node text { font-size: 16px; fill: #102a43; pointer-events: all; cursor: pointer; }
-    .link { fill: none; stroke-width: 2px; stroke-linecap: round; }
+    .node text { font-size: 16px; fill: #fff; pointer-events: all; cursor: pointer; }
+    .link { fill: none; stroke-width: 4px; stroke-linecap: round;}
   </style>
 </head>
 <body>
@@ -204,7 +204,7 @@
     const width = window.innerWidth - margin.left - margin.right;
     const height = window.innerHeight - margin.top - margin.bottom - 140;
     const color = d3.scaleOrdinal(d3.schemeSet3);
-    const linkColor = d3.scaleLinear().domain([0, 5]).range(['#bcccdc', '#334e68']);
+    const linkColor = d3.scaleLinear().domain([0, 5]).range(['#cfd6db', '#6f8090']);
 
     const svg = d3.select('#chart')
       .append('svg')
