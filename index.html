@@ -39,95 +39,42 @@
       color: #102a43;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    /* Begrenze Tweet-Embeds innerhalb der Info-Box */
-    #info blockquote.twitter-tweet {
-      max-width: 300px !important;
-      width: auto !important;
-      margin: 0 auto;
-    }
+    #info blockquote.twitter-tweet { max-width: 300px !important; margin: 0 auto; }
     #info .twitter-tweet-rendered,
     #info iframe[src*="platform.twitter.com"] {
       max-width: 300px !important;
       width: 100% !important;
     }
-    /* Optional, falls du <details> einsetzt */
-    details summary {
-      list-style: none;
-    }
-    details summary::-webkit-details-marker {
-      display: none;
-    }
-    details summary::marker {
-      content: none;
-    }
-    /* Overlay-Box für mehr Details */
     #detail-box {
       display: none;
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       background: rgba(255,255,255,0.95);
       padding: 20px;
       border-radius: 6px;
-      max-width: 500px;
-      width: 80%;
-      max-height: 80%;
-      overflow-y: auto;
+      max-width: 500px; width: 80%; max-height: 80%; overflow-y: auto;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       z-index: 100;
     }
-    #close-detail {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      background: transparent;
-      border: none;
-      font-size: 1.2em;
-      cursor: pointer;
-    }
-    .node circle {
-      stroke-width: 2px;
-      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
-      cursor: pointer;
-    }
-    .node text {
-      font-size: 16px;
-      fill: #102a43;
-      pointer-events: none;
-    }
-    .link {
-      fill: none;
-      stroke-width: 2px;
-      stroke-linecap: round;
-    }
+    #close-detail { position: absolute; top: 8px; right: 8px; background: transparent; border: none; font-size: 1.2em; cursor: pointer; }
+    .node circle { stroke-width: 2px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1)); cursor: pointer; }
+    .node text { font-size: 16px; fill: #102a43; pointer-events: all; cursor: pointer; }
+    .link { fill: none; stroke-width: 2px; stroke-linecap: round; }
   </style>
 </head>
 <body>
-
   <h2>Kodex für kritisches Denken</h2>
   <div id="chart"></div>
   <div id="info">Klicke auf einen Aspekt, um ein Beispiel zu sehen.</div>
-
-  <!-- Overlay für Detail-Anzeige -->
   <div id="detail-box">
     <button id="close-detail">×</button>
     <div id="detail-content"></div>
   </div>
-
-  <!-- Bibliotheken -->
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
   <script>
-    // ===== 1) Deine Beispiele-Daten =====
     const examples = {
-      "Prämissen und Schlussfolgerungen identifizieren":
-        "Beispiel: In der Aussage 'Alle Menschen sind sterblich. Sokrates ist ein Mensch. Also ist Sokrates sterblich.' sind die Prämissen 'Alle Menschen sind sterblich' und 'Sokrates ist ein Mensch' und die Schlussfolgerung 'Sokrates ist sterblich'.",
-      "Fakten vs. Meinungen unterscheiden":
-        "Beispiel: 'Der Eiffelturm ist 324 Meter hoch.' ist ein Fakt, während 'Der Eiffelturm ist das schönste Bauwerk der Welt.' eine Meinung darstellt.",
-      "Komplexe Probleme zerlegen":
-        "Beispiel: Bei der Planung eines Umzugs kann man das Gesamtproblem in Teilaufgaben wie 'Zeitplan erstellen', 'Transportoptionen prüfen' und 'Kisten packen' zerlegen.",
       "Glaubwürdigkeit von Quellen und Beweisen": `
          <p>Beim Beurteilen der Glaubwürdigkeit von Informationen müssen meist zwei Ebenen im Blick behalten werden:</p>
           <ul>
@@ -147,14 +94,20 @@
         <a href="#" class="show-detail">▶ Mehr Details anzeigen</a>
       `,
       "Glaubwürdigkeit von Quellen und Beweisen Detail": `
-        <p>Hi Verena, wie findest Du das?:</p>
+        <ul>
+          <li><strong>Unmittelbare (primäre) Quelle:</strong> z. B. ein Blog oder eine Zeitung</li>
+          <li><strong>Ursprüngliche (sekundäre) Quelle:</strong> z. B. Studie oder Primärstatistik</li>
+        </ul>
       `,
-      // ... weitere Haupt- und Detail-Beispiele hier eintragen ...
+      "Prämissen und Schlussfolgerungen identifizieren":
+        "Beispiel: In der Aussage 'Alle Menschen sind sterblich. Sokrates ist ein Mensch. Also ist Sokrates sterblich.' sind die Prämissen 'Alle Menschen sind sterblich' und 'Sokrates ist ein Mensch' und die Schlussfolgerung 'Sokrates ist sterblich'.",
+      "Fakten vs. Meinungen unterscheiden":
+        "Beispiel: 'Der Eiffelturm ist 324 Meter hoch.' ist ein Fakt, während 'Der Eiffelturm ist das schönste Bauwerk der Welt.' eine Meinung darstellt.",
+      "Komplexe Probleme zerlegen":
+        "Beispiel: Bei der Planung eines Umzugs kann man das Gesamtproblem in Teilaufgaben wie 'Zeitplan erstellen', 'Transportoptionen prüfen' und 'Kisten packen' zerlegen."
     };
-
-    // ===== 2) Hierarchische Daten für den D3-Baum =====
     const data = {
-          "name": "Kodex für kritisches Denken",
+      "name": "Kodex für kritisches Denken",
       "children": [
         { "name": "Kognitive Fähigkeiten", "children": [
             { "name": "Analyse", "children": [
@@ -247,7 +200,6 @@
       ]
     };
 
-    // ===== 3) Setup für D3 Tree Layout =====
     const margin = { top: 20, right: 120, bottom: 20, left: 300 };
     const width = window.innerWidth - margin.left - margin.right;
     const height = window.innerHeight - margin.top - margin.bottom - 140;
@@ -256,19 +208,17 @@
 
     const svg = d3.select('#chart')
       .append('svg')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
-      .call(d3.zoom().scaleExtent([0.5, 2]).on('zoom', ({transform}) => g.attr('transform', transform)));
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .call(d3.zoom().scaleExtent([0.5, 2]).on('zoom', event => g.attr('transform', event.transform)));
 
-    const g = svg.append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
-
+    const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
     const treemap = d3.tree().size([height, width]);
     let root = d3.hierarchy(data);
     root.x0 = height / 2;
     root.y0 = 0;
 
-    // Collapse-Funktion
+    // Alle Knoten einklappen
     function collapse(d) {
       if (d.children) {
         d._children = d.children;
@@ -276,9 +226,9 @@
         d.children = null;
       }
     }
-    if (root.children) root.children.forEach(collapse);
+    collapse(root);
 
-    // Diagonal-Pfad
+    // Pfad für Links
     function diagonal(d) {
       return `M${d.source.y},${d.source.x}
               C${(d.source.y + d.target.y)/2},${d.source.x}
@@ -287,107 +237,69 @@
     }
 
     let i = 0;
-
-    // ===== 4) Klick-Handler auslagern =====
-    function onNodeClick(event, d) {
-      // Toggle children
-      if (d.children) { d._children = d.children; d.children = null; }
-      else           { d.children = d._children; d._children = null; }
-      update(root);
-
-      // Info-Box befüllen
-      const key = d.data.name;
-      d3.select('#info').html(
-        `<strong>${key}</strong><br>${examples[key] || 'Kein Beispiel verfügbar.'}`
-      );
-
-      // „Mehr Details“-Link abfangen
-      d3.select('#info').selectAll('.show-detail')
-        .on('click', function(e) {
-          e.preventDefault();
-          const detailKey = key + ' Detail';
-          d3.select('#detail-content')
-            .html(examples[detailKey] || 'Keine Details vorhanden.');
-          d3.select('#detail-box').style('display','block');
-          if (window.twttr?.widgets?.load) {
-            twttr.widgets.load(document.getElementById('detail-content'));
-          }
-        });
-
-      // Tweets in #info parsen, falls vorhanden
-      if (window.twttr?.widgets?.load) {
-        twttr.widgets.load(document.getElementById('info'));
-      }
-    }
-
-    // ===== 5) update-Funktion =====
     function update(source) {
       const treeData = treemap(root);
       const nodes = treeData.descendants();
       const links = treeData.links();
-
-      nodes.forEach(d => d.y = d.depth * 180);
+      nodes.forEach(d => { d.y = d.depth * 180; });
 
       // Nodes
-      const nodeEnter = g.selectAll('g.node')
-        .data(nodes, d => d.id || (d.id = ++i))
-        .enter().append('g')
-          .attr('class','node')
-          .attr('transform', d => `translate(${source.y0},${source.x0})`)
-          .on('click', onNodeClick);
-
-      nodeEnter.append('circle')
-        .attr('r', 0)
-        .attr('fill', d => color(d.depth));
-
+      const node = g.selectAll('g.node').data(nodes, d => d.id || (d.id = ++i));
+      const nodeEnter = node.enter().append('g')
+        .attr('class', 'node')
+        .attr('transform', d => `translate(${source.y0},${source.x0})`)
+        .on('click', (event, d) => {
+          if (d.children) { d._children = d.children; d.children = null; }
+          else { d.children = d._children; d._children = null; }
+          update(root);
+          const key = d.data.name;
+          d3.select('#info').html(`<strong>${key}</strong><br>${examples[key]||'Kein Beispiel verfügbar.'}`);
+          d3.select('#info').selectAll('.show-detail')
+            .on('click', function(e) {
+              e.preventDefault();
+              d3.select('#detail-content').html(examples[key + ' Detail']||'Keine Details vorhanden.');
+              d3.select('#detail-box').style('display','block');
+              if (window.twttr?.widgets?.load) twttr.widgets.load(document.getElementById('detail-content'));
+            });
+          if (window.twttr?.widgets?.load) twttr.widgets.load(document.getElementById('info'));
+        });
+      nodeEnter.append('circle').attr('r', 0).attr('fill', d => color(d.depth));
       nodeEnter.append('text')
         .attr('x', d => (d.children || d._children) ? -15 : 15)
         .attr('dy', '.35em')
         .attr('text-anchor', d => (d.children || d._children) ? 'end' : 'start')
         .text(d => d.data.name);
 
-      // Transition Enter→Update
-      const nodeUpdate = nodeEnter.merge(g.selectAll('g.node'));
-      nodeUpdate.transition().duration(300)
-        .attr('transform', d => `translate(${d.y},${d.x})`);
+      const nodeUpdate = nodeEnter.merge(node);
+      nodeUpdate.transition().duration(300).attr('transform', d => `translate(${d.y},${d.x})`);
       nodeUpdate.select('circle').transition().duration(300).attr('r', 8);
-
-      // Exit
-      const nodeExit = g.selectAll('g.node').exit();
+      const nodeExit = node.exit();
       nodeExit.transition().duration(300)
         .attr('transform', d => `translate(${source.y},${source.x})`)
         .remove();
 
       // Links
-      const link = g.selectAll('path.link')
-        .data(links, d => d.target.id);
-
-      const linkEnter = link.enter().insert('path','g')
-        .attr('class','link')
+      const link = g.selectAll('path.link').data(links, d => d.target.id);
+      const linkEnter = link.enter().insert('path', 'g')
+        .attr('class', 'link')
         .attr('d', d => {
           const o = { x: source.x0, y: source.y0 };
           return diagonal({ source: o, target: o });
         })
         .attr('stroke', d => linkColor(d.target.depth));
-
-      linkEnter.merge(link).transition().duration(300)
-        .attr('d', d => diagonal(d));
-
-      link.exit().transition().duration(300)
+      linkEnter.merge(link).transition().duration(300).attr('d', d => diagonal(d));
+      const linkExit = link.exit();
+      linkExit.transition().duration(300)
         .attr('d', d => {
           const o = { x: source.x, y: source.y };
           return diagonal({ source: o, target: o });
         })
         .remove();
 
-      // Save positions
       nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
     }
 
-    // Initial render
     update(root);
-
-    // ===== 6) Close-Button =====
     d3.select('#close-detail').on('click', () => {
       d3.select('#detail-box').style('display','none');
       d3.select('#detail-content').html('');
